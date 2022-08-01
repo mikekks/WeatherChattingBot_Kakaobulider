@@ -12,7 +12,7 @@ jsonObj = json.loads(response.text)
 # 미래 초미세먼지
 tomorrow = datetime.today() - timedelta(days=1)
 url_pm25_f = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustWeekFrcstDspth'
-params_pm25 = {'serviceKey': 'tQbOnMmsrqZxNdcxk+8Qs34iprcC68q0zYWKUmR+bReBxGxoBwtnFMdBOPBAsPb9f++p1Oog8ZJ292Ftoz5XtQ==',
+params_pm25 = {'serviceKey': '[API KEY]',
                'returnType': 'JSON', 'numOfRows': '100', 'pageNo': '1', 'searchDate': tomorrow.strftime('%Y-%m-%d')}
 response_pm25 = requests.get(url_pm25_f, params=params_pm25)
 jsonObj_pm25 = json.loads(response_pm25.text)
@@ -23,7 +23,7 @@ pm25_f3 = jsonObj_pm25['response']['body']['items'][0]['frcstThreeCn'][5:7]
 
 # 미래 미세먼지 // API 호출 날짜 설정 일단 현재 날짜 -1 로 함 바꿔야함.
 url_pm10_f = 'http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMinuDustFrcstDspth'
-params_pm10 = {'serviceKey': 'tQbOnMmsrqZxNdcxk+8Qs34iprcC68q0zYWKUmR+bReBxGxoBwtnFMdBOPBAsPb9f++p1Oog8ZJ292Ftoz5XtQ==',
+params_pm10 = {'serviceKey': '[API KEY]',
                'returnType': 'JSON', 'numOfRows': '100', 'pageNo': '1', 'searchDate': tomorrow.strftime('%Y-%m-%d'),
                'InformCode': 'PM10'}
 response_pm10 = requests.get(url_pm10_f, params=params_pm10)
@@ -38,7 +38,7 @@ application = Flask(__name__)
 
 def Temp_c(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -68,7 +68,7 @@ def Temp_c(num1, num2, num3):
 
 def Uv(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -92,7 +92,7 @@ def Uv(num1, num2, num3):
 
 def current_pm10():
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     pm10 = jsonObj['current']['air_quality']['pm10']
@@ -111,7 +111,7 @@ def current_pm10():
 
 def current_pm2_5():
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     pm2_5 = jsonObj['current']['air_quality']['pm2_5']
@@ -152,7 +152,7 @@ def future_pm2_5(str):
 
 def Wind_mps(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -182,7 +182,7 @@ def Wind_mps(num1, num2, num3):
 # 오늘: 0, 내일:1, 모레:2
 def send_weather(num1, num2):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     temp_c_1 = str(jsonObj['forecast']['forecastday'][num1]['hour'][num2]['temp_c'])
@@ -244,7 +244,7 @@ def send_weather(num1, num2):
 # 드라이브지수
 def Drive(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -290,7 +290,7 @@ def Drive(num1, num2, num3):
 # 한강지수
 def hangang(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -368,7 +368,7 @@ def hangang(num1, num2, num3):
 # 런닝지수, 왜 미세먼지만 들어가있지?
 def running(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -412,7 +412,7 @@ def running(num1, num2, num3):
 # 우산지수
 def Umbrella(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -465,7 +465,7 @@ def Umbrella(num1, num2, num3):
 # 감기위험지수
 def cold(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -529,7 +529,7 @@ def cold(num1, num2, num3):
 # 세차지수
 def Car_Washing(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -569,7 +569,7 @@ def Car_Washing(num1, num2, num3):
 # 빨래지수, 초미세먼지 고려 X
 def Washing(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -603,7 +603,7 @@ def Washing(num1, num2, num3):
 # 식중독위험지수
 def poison(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -655,7 +655,7 @@ def poison(num1, num2, num3):
 # 호흡기 위험 지수
 def respiratory(num1, num2, num3):
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     if num3 == 0:
@@ -761,7 +761,7 @@ def respiratory(num1, num2, num3):
 def weather_info_f():
     req = request.get_json()
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
 
@@ -827,7 +827,7 @@ def weather_info_f():
 def current_info_f():
     req = request.get_json()
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     info = req["action"]["detailParams"]["weather_info"]["value"]
@@ -909,7 +909,7 @@ def current_info_f():
 @application.route("/current", methods=['POST'])
 def current_f():
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     temp_c = str(jsonObj['current']['temp_c'])
@@ -940,7 +940,7 @@ def current_f():
 def future_f():
     req = request.get_json()
     response = requests.get(
-        'http://api.weatherapi.com/v1/forecast.json?key=0565b3503f01497fa25104238220105&q=Seoul&days=3&aqi=yes&alerts=yes')
+        '[API KEY]')
     jsonObj = json.loads(response.text)
 
     date_f = req["action"]["detailParams"]["weather_date"]["value"]
